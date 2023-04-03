@@ -33976,6 +33976,38 @@ paths:
           format: int64
       tags:
         - Query
+  /gm/gm/gm:
+    get:
+      summary: Queries a list of Gm items.
+      operationId: GmGmGm
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              text:
+                type: string
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      tags:
+        - Query
   /gm/gm/params:
     get:
       summary: Parameters queries the parameters of the module.
@@ -70337,6 +70369,11 @@ definitions:
   gm.gm.Params:
     type: object
     description: Params defines the parameters for the module.
+  gm.gm.QueryGmResponse:
+    type: object
+    properties:
+      text:
+        type: string
   gm.gm.QueryParamsResponse:
     type: object
     properties:
