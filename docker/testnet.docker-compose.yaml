@@ -3,6 +3,7 @@ version: "3"
 services:
   celestia:
     image: ghcr.io/celestiaorg/celestia-node:v0.8.2
+    restart: always
     expose:
       - "26659"
     ports:
@@ -10,17 +11,21 @@ services:
     environment:
       - NODE_TYPE=light
       - P2P_NETWORK=blockspacerace-0
-    command: celestia light start --core.ip https://rpc-blockspacerace.pops.one/ --gateway --gateway.addr 0.0.0.0 --gateway.port 26659 --p2p.network blockspacerace-0
+      - NODE_STORE=/home/celestia
+    command: celestia light start --core.ip https://rpc-blockspacerace.pops.one/ --gateway --gateway.addr 0.0.0.0 --gateway.port 26659 --p2p.network blockspacerace-0 --node.store /home/celestia
+    volumes:
+      - ./keys:/home/celestia/keys/
+      - ./data:/home/celestia/data/
   gm:
     build:
       context: .
+    restart: always
     expose:
       - "26656"
     ports:
       - "26657:26657"
     environment:
-      - RPC=https://rpc-blockspacerace.pops.one/block
+      - RPC=https://rpc-blockspacerace.pops.one/
     depends_on:
       celestia:
         condition: service_started
-

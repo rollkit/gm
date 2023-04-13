@@ -9,7 +9,7 @@ echo "NAMESPACE_ID: $NAMESPACE_ID"
 # to allow users to interact with Celestia's nodes by querying
 # the node's state and broadcasting transactions on the Celestia
 # network. The default port is 26657.
-DA_BLOCK_HEIGHT=$(curl $RPC | jq -r '.result.block.header.height')
+DA_BLOCK_HEIGHT=$(curl --silent ${RPC%/}${RPC:+/}block | jq -r '.result.block.header.height')
 echo "DA_BLOCK_HEIGHT: $DA_BLOCK_HEIGHT"
 
 if [ -z "$DA_BLOCK_HEIGHT" ]; then
