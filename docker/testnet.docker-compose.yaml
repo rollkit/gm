@@ -1,7 +1,7 @@
 version: "3"
 
 services:
-  celestia-light-node:
+  celestia:
     image: ghcr.io/celestiaorg/celestia-node:v0.8.2
     expose:
       - "26659"
@@ -18,7 +18,9 @@ services:
       - "26656"
     ports:
       - "26657:26657"
+    environment:
+      - RPC=https://rpc-blockspacerace.pops.one/block
     depends_on:
-      celestia-light-node:
+      celestia:
         condition: service_started
 

@@ -1,7 +1,7 @@
 version: "3"
 
 services:
-  celestia-local:
+  celestia:
     image: ghcr.io/rollkit/local-celestia-devnet:v0.8.2
     expose:
       - "26657"
@@ -13,9 +13,6 @@ services:
       interval: 5s
       timeout: 10s
       retries: 5
-    networks:
-      localnet:
-        ipv4_address: 192.167.10.2
   gm:
     build:
       context: .
@@ -23,17 +20,8 @@ services:
       - "26656"
     ports:
       - "26657:26657"
+    environment:
+      - RPC=http://celestia:26657/block
     depends_on:
-      celestia-local:
+      celestia:
         condition: service_healthy
-    networks:
-      localnet:
-        ipv4_address: 192.167.10.3
-
-networks:
-  localnet:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-      - subnet: 192.167.10.0/16
