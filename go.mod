@@ -257,4 +257,5 @@ replace (
 )
 
 replace github.com/cosmos/cosmos-sdk => github.com/jcstein/cosmos-sdk v0.46.7-rollmint-v0.5.0-no-fraud-proofs.0.20230413193406-be33b17c12fc
+
 replace github.com/tendermint/tendermint => github.com/celestiaorg/tendermint v0.34.22-0.20221202214355-3605c597500d
