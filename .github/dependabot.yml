@@ -16,4 +16,3 @@ updates:
     directory: "/docker"
     schedule:
       interval: daily
-
