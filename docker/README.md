@@ -33,6 +33,10 @@ To use the rollup, follow these steps:
 
 ## Testnet Usage
 
+> In order to use the rollup on a testnet, you must have funds in the testnet account.
+  On the first run of the celestia node, the node will generate a new account and print the address.
+  You can then use the address to request funds from celestia Discord server.
+
 To use the rollup on the testnet, follow these steps:
 
 1. Navigate to the directory containing the files.
