@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# print all commands before executing them
+set -x
+
 # create a random Namespace ID for your rollup to post blocks to
 NAMESPACE_ID=$(echo $RANDOM | md5sum | head -c 16; echo)
 echo "NAMESPACE_ID: $NAMESPACE_ID"

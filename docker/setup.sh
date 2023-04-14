@@ -9,12 +9,6 @@ CHAINFLAG="--chain-id ${CHAIN_ID}"
 TOKEN_AMOUNT="10000000000000000000000000stake"
 STAKING_AMOUNT="1000000000stake"
 
-# build the gm chain with Rollkit
-ignite chain build
-
-# reset any existing genesis/chain data
-gmd tendermint unsafe-reset-all
-
 # initialize the validator with the chain ID you set
 gmd init $VALIDATOR_NAME --chain-id $CHAIN_ID
 

@@ -2,8 +2,8 @@ version: "3"
 
 services:
   celestia:
-    image: ghcr.io/rollkit/local-celestia-devnet:v0.8.2-test
-    restart: always
+    image: ghcr.io/rollkit/local-celestia-devnet:v0.8.2
+    restart: unless-stopped
     expose:
       - "26657"
       - "26659"
@@ -17,7 +17,7 @@ services:
   gm:
     build:
       context: .
-    restart: always
+    restart: unless-stopped
     expose:
       - "26656"
     ports:
