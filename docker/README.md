@@ -26,10 +26,10 @@ To set up the rollup, follow these steps:
 To use the rollup, follow these steps:
 
 1. Navigate to the directory containing the files.
-2. Run `docker-compose up` to start the rollup and Celestia nodes.
+2. Run `docker compose up` to start the rollup and Celestia nodes.
 3. The rollup should now be accessible at `localhost:26657`.
 
-> If you have issues with the rollup, you can run `docker-compose down` to stop the rollup and Celestia nodes and then run `docker-compose up` again to restart the rollup.
+> If you have issues with the rollup, you can run `docker compose down` to stop the rollup and Celestia nodes and then run `docker compose up` again to restart the rollup.
 
 ## Testnet Usage
 
@@ -39,10 +39,10 @@ To use the rollup on the testnet, follow these steps:
 2. Create the key folder and assign the correct permissions to have a stable address:
     - `mkdir -p ./data/celestia-keys`
     - `sudo chown 10001:1001 ./data/celestia-keys`
-3. Run `docker-compose -f testnet.docker-compose.yaml up` to start the rollup and Celestia nodes on the testnet.
+3. Run `docker compose -f testnet.docker-compose.yaml up` to start the rollup and Celestia nodes on the testnet.
 4. The rollup should now be accessible at `localhost:26657`.
 
-> If you have issues with the rollup, you can run `docker-compose -f testnet.docker-compose.yaml down` to stop the rollup and Celestia nodes and then run `docker-compose -f testnet.docker-compose.yaml up` again to restart the rollup.
+> If you have issues with the rollup, you can run `docker compose -f testnet.docker-compose.yaml down` to stop the rollup and Celestia nodes and then run `docker compose -f testnet.docker-compose.yaml up` again to restart the rollup.
 
 ## Support
 
