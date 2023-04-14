@@ -9,8 +9,8 @@ RUN apk --no-cache add \
 
 COPY setup.sh entrypoint.sh /home/
 
-RUN /bin/sh /home/setup.sh
+USER rollkit
 
-USER ${USER_NAME}
+RUN /bin/sh /home/setup.sh
 
 ENTRYPOINT [ "/bin/sh", "/home/entrypoint.sh" ]
