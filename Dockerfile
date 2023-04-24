@@ -10,7 +10,7 @@ COPY --from=ignite /usr/bin/ignite /usr/bin/ignite
 
 WORKDIR /apps
 
-COPY --chown=1000:1000 .. .
+COPY --chown=1000:1000 . .
 
 RUN ignite chain build --release
 
