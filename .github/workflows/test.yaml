@@ -23,8 +23,8 @@ jobs:
 
     - name: Install bc
       run: |
-        apt-get update
-        apt-get install bc
+        sudo apt-get update
+        sudo apt-get install bc
 
     - name: Build container
       run: |
