@@ -83,15 +83,6 @@ jobs:
     #       exit 1
     #     fi
 
-    # If previous step failed and triggered from a PR, create a comment on the PR
-    - name: Comment on PR
-      if: failure() && github.event_name == 'pull_request'
-      uses: peter-evans/create-or-update-comment@v3
-      with:
-        issue-number: ${{ github.event.pull_request.number }}
-        body: |
-          :x: **Test failed** :x:
-
     - name: Cleanup compose
       if: always()
       run: docker compose -f docker/docker-compose.yaml down --timeout 0
