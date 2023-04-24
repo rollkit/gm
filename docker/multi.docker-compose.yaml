@@ -1,0 +1,65 @@
+version: "3"
+
+services:
+  celestia:
+    image: ghcr.io/rollkit/local-celestia-devnet:v0.8.2
+    restart: unless-stopped
+    expose:
+      - "26657"
+      - "26659"
+    # Rollup can't start until after DA starts.
+    # This ensures it waits 5 seconds so the rollup can query it.
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:26657/block?height=1"]
+      interval: 5s
+      timeout: 10s
+      retries: 5
+    networks:
+      localnet:
+        ipv4_address: 192.167.13.2
+  gm:
+    build:
+      context: .
+    restart: unless-stopped
+    expose:
+      - "26656"
+    ports:
+      - "26657:26657"
+    environment:
+      - RPC=http://celestia:26657/
+      - START_ARGS=--rollkit.aggregator
+      - DA_BLOCK_HEIGHT=1
+    depends_on:
+      celestia:
+        condition: service_healthy
+    networks:
+      localnet:
+        ipv4_address: 192.167.13.3
+  gm2:
+    build:
+      context: .
+    restart: unless-stopped
+    expose:
+      - "26656"
+    ports:
+      - "36657:26657"
+    environment:
+      - RPC=http://celestia:26657/
+      - START_ARGS=--home /home/rollkit/.gm2
+      - DA_BLOCK_HEIGHT=1
+    depends_on:
+      celestia:
+        condition: service_healthy
+    networks:
+      localnet:
+        ipv4_address: 192.167.13.4
+
+
+networks:
+  localnet:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.167.13.0/24
+          gateway: 192.167.13.1

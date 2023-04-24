@@ -26,6 +26,7 @@ services:
       - "26657:26657"
     environment:
       - RPC=https://rpc-blockspacerace.pops.one/
+      - START_ARGS=--rollkit.aggregator
     depends_on:
       celestia:
         condition: service_started

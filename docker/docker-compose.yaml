@@ -24,6 +24,7 @@ services:
       - "26657:26657"
     environment:
       - RPC=http://celestia:26657/
+      - START_ARGS=--rollkit.aggregator
     depends_on:
       celestia:
         condition: service_healthy
