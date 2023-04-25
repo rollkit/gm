@@ -5,16 +5,20 @@ set -x
 
 # Read out the namespace ID generated in setup.sh
 # Note: If you want to regerneate the namespace ID, you need to rebuild the container
-NAMESPACE_ID=$(cat ${HOME}/NAMESPACE_ID)
+if [ -z "${NAMESPACE_ID}" ]; then
+    # If DA_BLOCK_HEIGHT not already set, fetch current height
+    # This is needed if you want to test multiple nodes
+    NAMESPACE_ID=$(cat ${HOME}/NAMESPACE_ID)
+fi
 
 # query the DA Layer start height, in this case we are querying
 # our local devnet at port 26657, the RPC. The RPC endpoint is
 # to allow users to interact with Celestia's nodes by querying
 # the node's state and broadcasting transactions on the Celestia
 # network. The default port is 26657.
-# If DA_BLOCK_HEIGHT not already set, fetch current height
-# This is needed if you want to test multiple nodes
 if [ -z "${DA_BLOCK_HEIGHT}" ]; then
+    # If DA_BLOCK_HEIGHT not already set, fetch current height
+    # This is needed if you want to test multiple nodes
     DA_BLOCK_HEIGHT=$(curl --silent ${RPC%/}${RPC:+/}block | jq -r '.result.block.header.height')
 fi
 
