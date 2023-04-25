@@ -56,32 +56,32 @@ jobs:
       run: |
         docker compose -f docker/docker-compose.yaml exec gm gmd q gm gm
 
-    # - name: Check if transfer works
-    #   run: |
-    #     amount=42069
-    #     genesis=$(docker compose -f docker/docker-compose.yaml exec gm cat .gm/config/genesis.json)
-    #     addresses=$(echo $genesis | jq -r '.app_state.auth.accounts[].address')
-    #     address1=$(echo $addresses | cut -d' ' -f1)
-    #     address2=$(echo $addresses | cut -d' ' -f2)
-    #     a1balance_old=$(docker compose -f docker/docker-compose.yaml exec gm gmd query bank balances ${address1} | yq '.balances[0].amount' -)
-    #     a2balance_old=$(docker compose -f docker/docker-compose.yaml exec gm gmd query bank balances ${address2} | yq '.balances[0].amount' -)
-    #     echo "Sending $amount from $address1 to $address2"
-    #     docker compose -f docker/docker-compose.yaml exec gm gmd tx bank send ${address1} ${address2} ${amount}stake --keyring-backend test -y > /dev/null
-    #     echo "Waiting for block to be committed"
-    #     height=$(docker compose -f docker/docker-compose.yaml exec gm curl celestia:26659/head | jq -r '.header.height')
-    #     echo $height
-    #     sleep 60 # TODO: Instead of sleeping, wait for a new block to be committed
-    #     a1balance_new=$(docker compose -f docker/docker-compose.yaml exec gm gmd query bank balances ${address1} | yq '.balances[0].amount' -)
-    #     a2balance_new=$(docker compose -f docker/docker-compose.yaml exec gm gmd query bank balances ${address2} | yq '.balances[0].amount' -)
-    #     a1balance_diff=$(echo "$a1balance_new - $a1balance_old" | bc)
-    #     a2balance_diff=$(echo "$a2balance_new - $a2balance_old" | bc)
+    - name: Check balance of accounts
+      run: |
+        amount=42069
+        genesis=$(docker compose -f docker/docker-compose.yaml exec gm cat .gm/config/genesis.json)
+        addresses=$(echo $genesis | jq -r '.app_state.auth.accounts[].address')
+        address1=$(echo $addresses | cut -d' ' -f1)
+        address2=$(echo $addresses | cut -d' ' -f2)
+        a1balance_old=$(docker compose -f docker/docker-compose.yaml exec gm gmd query bank balances ${address1} | yq '.balances[0].amount' -)
+        a2balance_old=$(docker compose -f docker/docker-compose.yaml exec gm gmd query bank balances ${address2} | yq '.balances[0].amount' -)
+        echo "Sending $amount from $address1 to $address2"
+        docker compose -f docker/docker-compose.yaml exec gm gmd tx bank send ${address1} ${address2} ${amount}stake --keyring-backend test -y > /dev/null
+        echo "Waiting for block to be committed"
+        height=$(docker compose -f docker/docker-compose.yaml exec gm curl celestia:26659/head | jq -r '.header.height')
+        echo $height
+        sleep 60 # TODO: Instead of sleeping, wait for a new block to be committed
+        a1balance_new=$(docker compose -f docker/docker-compose.yaml exec gm gmd query bank balances ${address1} | yq '.balances[0].amount' -)
+        a2balance_new=$(docker compose -f docker/docker-compose.yaml exec gm gmd query bank balances ${address2} | yq '.balances[0].amount' -)
+        a1balance_diff=$(echo "$a1balance_new - $a1balance_old" | bc)
+        a2balance_diff=$(echo "$a2balance_new - $a2balance_old" | bc)
 
-    #     if [ "$a1balance_diff" -eq "-$amount" ] && [ "$a2balance_diff" -eq "$amount" ]; then
-    #       echo "Transfer successful"
-    #     else
-    #       echo "Transfer failed"
-    #       exit 1
-    #     fi
+        if [ "$a1balance_diff" -eq "-$amount" ] && [ "$a2balance_diff" -eq "$amount" ]; then
+          echo "Transfer successful"
+        else
+          echo "Transfer failed"
+          exit 1
+        fi
 
     - name: Cleanup compose
       if: always()
