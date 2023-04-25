@@ -68,8 +68,6 @@ jobs:
         echo "Sending $amount from $address1 to $address2"
         docker compose -f docker/docker-compose.yaml exec gm gmd tx bank send ${address1} ${address2} ${amount}stake --keyring-backend test -y > /dev/null
         echo "Waiting for block to be committed"
-        height=$(docker compose -f docker/docker-compose.yaml exec gm curl celestia:26659/head | jq -r '.header.height')
-        echo $height
         sleep 60 # TODO: Instead of sleeping, wait for a new block to be committed
         a1balance_new=$(docker compose -f docker/docker-compose.yaml exec gm gmd query bank balances ${address1} | yq '.balances[0].amount' -)
         a2balance_new=$(docker compose -f docker/docker-compose.yaml exec gm gmd query bank balances ${address2} | yq '.balances[0].amount' -)
