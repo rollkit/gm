@@ -11,6 +11,7 @@ This folder contains the following files:
 - `Dockerfile`: A Dockerfile for building the rollup image.
 - `docker-compose.yaml`: A docker-compose file for running the rollup and Celestia nodes.
 - `testnet.docker-compose.yaml`: A docker-compose file for running the rollup and Celestia nodes on a testnet.
+- `multi.docker-compose.yaml`: A docker-compose file for running two rollup nodes against local celestia devnet.
 
 ## Setup
 
@@ -47,6 +48,21 @@ To use the rollup on the testnet, follow these steps:
 4. The rollup should now be accessible at `localhost:26657`.
 
 > If you have issues with the rollup, you can run `docker compose -f testnet.docker-compose.yaml down` to stop the rollup and Celestia nodes and then run `docker compose -f testnet.docker-compose.yaml up` again to restart the rollup.
+
+## Multiple Nodes Usage
+
+To use the rollup, follow these steps:
+
+1. Navigate to the directory containing the files.
+2. Run `docker compose -f multi.docker-compose.yaml build --no-cache` to build the rollup nodes.
+3. Run `docker compose -f multi.docker-compose.yaml up` to start the rollup and Celestia nodes.
+4. The rollup should now be accessible at `localhost:26657`.
+
+> If you have issues with the rollup, you can run `docker compose -f multi.docker-compose.yaml down` to stop the rollup and Celestia nodes and then run `docker compose -f multi.docker-compose.yaml build --no-cache` and `docker compose -f multi.docker-compose.yaml up` again to restart the rollup.
+> It's important to build the rollup again after stopping it, as this will generate a random namespace ID for the rollup. If you don't build the rollup again, the rollup will use the same namespace ID as before, which will cause issues.
+
+Note:
+The nodes will not connect to each other, and they will sync using the DA layer.
 
 ## Support
 
