@@ -1,0 +1,19 @@
+# app
+# cmd
+# config.yml
+docker
+Dockerfile
+.dockerignore
+# docs
+.git
+.github
+.gitignore
+# go.mod
+# go.sum
+init-local.sh
+init-testnet.sh
+# proto
+readme.md
+# testutil
+# tools
+# x
