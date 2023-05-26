@@ -1260,8 +1260,8 @@ github.com/rogpeppe/fastuuid v0.0.0-20150106093220-6724a57986af/go.mod h1:XWv6So
 github.com/rogpeppe/fastuuid v1.2.0/go.mod h1:jVj6XXZzXRy/MSR5jhDC/2q6DgLz+nrA6LYCDYWNEvQ=
 github.com/rogpeppe/go-internal v1.3.0/go.mod h1:M8bDsm7K2OlrFYOpmOWEs/qY81heoFRclV5y23lUDJ4=
 github.com/rogpeppe/go-internal v1.9.0 h1:73kH8U+JUqXU8lRuOHeVHaa/SZPifC7BkcraZVejAe8=
-github.com/rollkit/cometbft v0.0.0-20230524013001-2968c8b8b121 h1:kMzxCUzXcdk318N/G2E7U0GXrq6yqczjFRs2RZvIUeE=
-github.com/rollkit/cometbft v0.0.0-20230524013001-2968c8b8b121/go.mod h1:Xc6G7GTlHAjeH3l5H8WibF/YrcCR6iDgAGrXVWkMwiU=
+github.com/rollkit/cometbft v0.0.0-20230524013049-75272ebaee38 h1:NXreFMbkn0zql+t9OjZhybitFygfx6qOI73D1Eb+JxE=
+github.com/rollkit/cometbft v0.0.0-20230524013049-75272ebaee38/go.mod h1:odqD7bL9gx8+eL8jtQIzA/sUOLJF+eZ2aFfztIcHJkw=
 github.com/rollkit/cosmos-sdk v0.46.12-rollkit-v0.8.0-no-fraud-proofs h1:nbeOC675V+hnzkR9fNWcLCXEughaZT0kgDdTsPf2DzU=
 github.com/rollkit/cosmos-sdk v0.46.12-rollkit-v0.8.0-no-fraud-proofs/go.mod h1:4QoXxoRywF4TJN8rcezNYtqjgfeGeeRKn4EoVJaTzxE=
 github.com/rollkit/rollkit v0.8.0 h1:DVZnU4f9E0UL/a4tRReoSifnXdyxezUPcqdD2BSqiCE=

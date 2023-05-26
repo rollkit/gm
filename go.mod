@@ -260,4 +260,4 @@ replace (
 
 replace github.com/cosmos/cosmos-sdk => github.com/rollkit/cosmos-sdk v0.46.12-rollkit-v0.8.0-no-fraud-proofs
 
-replace github.com/tendermint/tendermint => github.com/rollkit/cometbft v0.0.0-20230524013001-2968c8b8b121
+replace github.com/tendermint/tendermint => github.com/rollkit/cometbft v0.0.0-20230524013049-75272ebaee38
