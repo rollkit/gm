@@ -1,6 +1,6 @@
 FROM docker.io/ignitehq/cli:v0.26.1 as ignite
 
-FROM docker.io/golang:1.20.4-alpine3.17 as builder
+FROM docker.io/golang:1.20.6-alpine3.17 as builder
 
 # hadolint ignore=DL3018
 RUN apk --no-cache add \
