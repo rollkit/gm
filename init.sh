@@ -12,6 +12,7 @@ STAKING_AMOUNT="1000000000stake"
 
 # build the gm chain with Rollkit
 go build -o gmd ./cmd/gmd
+mv gmd /usr/local/bin
 
 # reset any existing genesis/chain data
 gmd tendermint unsafe-reset-all
