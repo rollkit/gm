@@ -10,9 +10,8 @@ CHAINFLAG="--chain-id ${CHAIN_ID}"
 TOKEN_AMOUNT="10000000000000000000000000stake"
 STAKING_AMOUNT="1000000000stake"
 
-# build the gm chain with Rollkit
-go build -o gmd ./cmd/gmd
-mv gmd /usr/local/bin
+# build and install the gm chain with Rollkit
+go install ./cmd/gmd
 
 # reset any existing genesis/chain data
 gmd tendermint unsafe-reset-all
