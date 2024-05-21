@@ -1,0 +1,5 @@
+entrypoint = "./cmd/gmd/main.go"
+
+[chain]
+config_dir = "./.gm"
+
