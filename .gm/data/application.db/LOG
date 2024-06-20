@@ -1,0 +1,20 @@
+=============== Jun 20, 2024 (UTC) ===============
+08:53:11.778771 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+08:53:11.846276 db@open opening
+08:53:11.847234 version@stat F·[] S·0B[] Sc·[]
+08:53:11.852904 db@janitor F·2 G·0
+08:53:11.853306 db@open done T·6.971655ms
+08:53:12.035273 db@close closing
+08:53:12.035494 db@close done T·208.17µs
+=============== Jun 20, 2024 (UTC) ===============
+08:53:46.695393 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+08:53:46.696019 version@stat F·[] S·0B[] Sc·[]
+08:53:46.696050 db@open opening
+08:53:46.696106 journal@recovery F·1
+08:53:46.696494 journal@recovery recovering @1
+08:53:46.750633 memdb@flush created L0@2 N·23 S·607B "s/k..ion,v11":"s/k..ion,v13"
+08:53:46.753853 version@stat F·[1] S·607B[607B] Sc·[0.25]
+08:53:46.775751 db@janitor F·3 G·0
+08:53:46.775845 db@open done T·79.765273ms
+08:53:49.491258 db@close closing
+08:53:49.491381 db@close done T·119.123µs
