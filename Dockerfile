@@ -14,7 +14,7 @@ COPY --chown=1000:1000 . .
 
 RUN ignite chain build --release
 
-FROM docker.io/alpine:3.18.3
+FROM docker.io/alpine:3.20.1
 
 # Read here why UID 10001: https://github.com/hexops/dockerfile/blob/main/README.md#do-not-use-a-uid-below-10000
 ARG UID=10001
