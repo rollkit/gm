@@ -1,0 +1,15 @@
+version: "3"
+services:
+  gm:
+    build: .
+    # Also for targetting localhost as if you were outside the container
+    network_mode: host
+    # Use for bringing up docker image and keeping open
+    # command: tail -F anything
+    depends_on:
+      - local-da
+
+  local-da:
+    image: ghcr.io/rollkit/local-da:aa37274
+    ports:
+      - "7980:7980"

@@ -1,53 +1,32 @@
-FROM docker.io/ignitehq/cli:v0.26.1 as ignite
+FROM docker.io/alpine:latest
 
-FROM docker.io/golang:1.20.6-alpine3.17 as builder
+# Install system dependencies
+RUN apk update && apk add --no-cache bash curl jq git make sed ranger vim
 
-# hadolint ignore=DL3018
-RUN apk --no-cache add \
-        libc6-compat
+# Set the working directory
+WORKDIR /app
 
-COPY --from=ignite /usr/bin/ignite /usr/bin/ignite
+# Make sure GOPATH is set
+ENV GOPATH /usr/local/go
+ENV PATH $GOPATH/bin:$PATH
 
-WORKDIR /apps
+# Install Rollkit dependencies
+RUN curl -sSL https://rollkit.dev/install.sh | sh -s v0.13.4
 
-COPY --chown=1000:1000 . .
+# Install GM rollup
+RUN bash -c "$(curl -sSL https://rollkit.dev/install-gm-rollup.sh)"
 
-RUN ignite chain build --release
+# Update the working directory
+WORKDIR /app/gm
 
-FROM docker.io/alpine:3.18.3
+# Initialize the Rollkit configuration
+RUN rollkit toml init
 
-# Read here why UID 10001: https://github.com/hexops/dockerfile/blob/main/README.md#do-not-use-a-uid-below-10000
-ARG UID=10001
-ARG USER_NAME=rollkit
+# Edit rollkit.toml config_dir
+RUN sed -i 's/config_dir = "gm"/config_dir = "\.\/\.gm"/g' rollkit.toml
 
-ENV ROLLKIT_HOME=/home/${USER_NAME}
+# Launch GM rollup
+CMD rollkit start --rollkit.aggregator --rollkit.da_address http://localhost:7980
 
-# hadolint ignore=DL3018
-RUN apk --no-cache add \
-        bash \
-        libc6-compat \
-    # Creates a user with $UID and $GID=$UID
-    && adduser ${USER_NAME} \
-        -D \
-        -g ${USER_NAME} \
-        -h ${ROLLKIT_HOME} \
-        -s /sbin/nologin \
-        -u ${UID}
-
-COPY --from=builder /apps/release /release
-
-WORKDIR /release
-
-# Workaround for https://github.com/ignite/cli/issues/3480
-# Fixed in https://github.com/ignite/cli/pull/3481
-# hadolint ignore=DL4006
-RUN file=$(find . -maxdepth 1 -regex '.*\.tar\.gz') \
-    && sum=$(< release_checksum sed 's/ .*//') \
-    && echo "$sum  $file" | sha256sum -c - \
-    && tar -xvf "$file" -C /usr/bin/
-
-WORKDIR ${ROLLKIT_HOME}
-
-USER ${USER_NAME}
-
-ENTRYPOINT [ "gmd" ]
+# CMD ["bash"]
+# CMD ["tail -F /dev/null"]
