@@ -1,10 +1,13 @@
-name: Docker Build & Publish
+name: docker-build-publish
 
 # Trigger on all push events, new semantic version tags, and all PRs
 on:
   push:
     branches:
-      - "**"
+      - "main"
+      - "v[0-9].[0-9].x"
+      - "v[0-9].[0-9][0-9].x"
+      - "v[0-9].x"
     tags:
       - "v[0-9]+.[0-9]+.[0-9]+"
       - "v[0-9]+.[0-9]+.[0-9]+-alpha.[0-9]+"
@@ -13,8 +16,11 @@ on:
   pull_request:
 
 jobs:
-  docker-security-build:
+  docker-build:
     permissions:
       contents: write
       packages: write
-    uses: celestiaorg/.github/.github/workflows/reusable_dockerfile_pipeline.yml@v0.1.1 # yamllint disable-line rule:line-length
+    uses: rollkit/.github/.github/workflows/reusable_dockerfile_pipeline.yml@update-docker
+    with:
+      dockerfile: Dockerfile
+    secrets: inherit
