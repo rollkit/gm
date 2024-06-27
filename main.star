@@ -1,9 +1,9 @@
-def run(plan):
-    plan.print("Running plan")
+# This Kurtosis package spins up a minimal GM rollup that connects to a local DA
 
+def run(plan):
     # TODO: this can be pulled into the local da repo and then imported here
     plan.print("Adding Local DA service")
-    plan.add_service(
+    local_da = plan.add_service(
         name="local-da",
         config=ServiceConfig(
             image="ghcr.io/rollkit/local-da:aa37274",
@@ -22,11 +22,23 @@ def run(plan):
             },
         ),
     )
+    # Set the local DA address for the GM service
+    # TODO: this would be returned by the local DA package
+    local_da_address = "http://{0}:{1}".format(
+        local_da.ip_address, local_da.ports["jsonrpc"].number
+    )
+
     plan.print("Adding GM service")
-    #TODO: Need to figure out how to replicate the network_mode: host setup of docker compose
-    plan.add_service(
+    gm_start_cmd = [
+        "rollkit",
+        "start",
+        "--rollkit.aggregator",
+        "--rollkit.da_address {0}".format(local_da_address),
+    ]
+    gm = plan.add_service(
         name="gm",
         config=ServiceConfig(
-            image="ghcr.io/rollkit/gm:19b894c",
+            image="ghcr.io/rollkit/gm:1359143",
+            cmd=["/bin/sh", "-c", " ".join(gm_start_cmd)],
         ),
     )

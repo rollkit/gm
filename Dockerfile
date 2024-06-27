@@ -1,3 +1,6 @@
+# This Dockerfile might not follow best practices, but that is an intentional
+# choice to have this Dockerfile use the install scripts that users use in the tutorial.
+
 FROM docker.io/alpine:latest
 
 # Install system dependencies
@@ -24,9 +27,6 @@ RUN rollkit toml init
 
 # Edit rollkit.toml config_dir
 RUN sed -i 's/config_dir = "gm"/config_dir = "\.\/\.gm"/g' rollkit.toml
-
-# Launch GM rollup
-# CMD rollkit start --rollkit.aggregator --rollkit.da_address http://localhost:7980
 
 # Keep the container running
 CMD tail -F /dev/null
