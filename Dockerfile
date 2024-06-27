@@ -26,7 +26,7 @@ RUN rollkit toml init
 RUN sed -i 's/config_dir = "gm"/config_dir = "\.\/\.gm"/g' rollkit.toml
 
 # Launch GM rollup
-CMD rollkit start --rollkit.aggregator --rollkit.da_address http://localhost:7980
+# CMD rollkit start --rollkit.aggregator --rollkit.da_address http://localhost:7980
 
-# CMD ["bash"]
-# CMD ["tail -F /dev/null"]
+# Keep the container running
+CMD tail -F /dev/null
