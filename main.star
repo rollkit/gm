@@ -1,5 +1,7 @@
 def run(plan):
     plan.print("Running plan")
+
+    # TODO: this can be pulled into the local da repo and then imported here
     plan.print("Adding Local DA service")
     plan.add_service(
         name="local-da",
@@ -21,9 +23,10 @@ def run(plan):
         ),
     )
     plan.print("Adding GM service")
-    # plan.add_service(
-    #     name="gm",
-    #     config=ServiceConfig(
-    #         image=ImageBuildSpec(image_name="gm", build_context_dir="./"),
-    #     ),
-    # )
+    #TODO: Need to figure out how to replicate the network_mode: host setup of docker compose
+    plan.add_service(
+        name="gm",
+        config=ServiceConfig(
+            image="ghcr.io/rollkit/gm:19b894c",
+        ),
+    )

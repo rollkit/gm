@@ -1,7 +1,7 @@
 version: "3"
 services:
   gm:
-    build: .
+    image: ghcr.io/rollkit/gm:19b894c
     # Also for targetting localhost as if you were outside the container
     network_mode: host
     # Use for bringing up docker image and keeping open
