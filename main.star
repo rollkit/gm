@@ -1,5 +1,6 @@
 # This Kurtosis package spins up a minimal GM rollup that connects to a local DA
 
+
 def run(plan):
     # TODO: this can be pulled into the local da repo and then imported here
     plan.print("Adding Local DA service")
@@ -29,6 +30,7 @@ def run(plan):
     )
 
     plan.print("Adding GM service")
+    plan.print("NOTE: This can take a few minutes to start up...")
     gm_start_cmd = [
         "rollkit",
         "start",
@@ -40,5 +42,32 @@ def run(plan):
         config=ServiceConfig(
             image="ghcr.io/rollkit/gm:1359143",
             cmd=["/bin/sh", "-c", " ".join(gm_start_cmd)],
+            ports={
+                "jsonrpc": PortSpec(
+                    number=26657,
+                    transport_protocol="TCP",
+                    application_protocol="http",
+                ),
+            },
+            public_ports={
+                "jsonrpc": PortSpec(
+                    number=26657,
+                    transport_protocol="TCP",
+                    application_protocol="http",
+                )
+            },
+            ready_conditions=ReadyCondition(
+                recipe=ExecRecipe(
+                    command=["rollkit", "status"],
+                    extract={
+                        "output": "fromjson | .node_info.network",
+                    },
+                ),
+                field="extract.output",
+                assertion="==",
+                target_value="gm",
+                interval="1s",
+                timeout="5m",
+            ),
         ),
     )
