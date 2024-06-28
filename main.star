@@ -5,12 +5,14 @@ def run(plan):
     ##########
     # local DA
     ##########
-    
+
     # TODO: this can be pulled into the local da repo and then imported here
     plan.print("Adding Local DA service")
     local_da_port_number = 7980
     local_da_port_spec = PortSpec(
-        number=local_da_port_number, transport_protocol="TCP", application_protocol="http"
+        number=local_da_port_number,
+        transport_protocol="TCP",
+        application_protocol="http",
     )
     local_da_ports = {
         "jsonrpc": local_da_port_spec,
@@ -51,7 +53,7 @@ def run(plan):
     gm = plan.add_service(
         name="gm",
         config=ServiceConfig(
-            image="ghcr.io/rollkit/gm:1359143",
+            image="ghcr.io/rollkit/gm:49147e3",
             cmd=["/bin/sh", "-c", " ".join(gm_start_cmd)],
             ports=gm_ports,
             public_ports=gm_ports,
