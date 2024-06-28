@@ -28,5 +28,8 @@ RUN rollkit toml init
 # Edit rollkit.toml config_dir
 RUN sed -i 's/config_dir = "gm"/config_dir = "\.\/\.gm"/g' rollkit.toml
 
+# Run base rollkit command to download packages
+RUN rollkit
+
 # Keep the container running
 CMD tail -F /dev/null
