@@ -17,4 +17,5 @@ jobs:
           compose-file: "compose.yaml"
           up-flags: "--build"
           test-container: gm
-          test-command: "rollkit start --rollkit.aggregator --rollkit.da_address http://localhost:7980"
+          # Run the GM tutorial and halt after 10 blocks
+          test-command: "rollkit start --rollkit.aggregator --rollkit.da_address http://localhost:7980 --halt-height 10"
