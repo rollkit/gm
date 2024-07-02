@@ -20,7 +20,7 @@ def run(plan):
     local_da = plan.add_service(
         name="local-da",
         config=ServiceConfig(
-            image="ghcr.io/rollkit/local-da:aa37274",
+            image="ghcr.io/rollkit/local-da:v0.2.1",
             ports=local_da_ports,
             public_ports=local_da_ports,
         ),
@@ -53,7 +53,8 @@ def run(plan):
     gm = plan.add_service(
         name="gm",
         config=ServiceConfig(
-            image="ghcr.io/rollkit/gm:49147e3",
+            # Using rollkit version v0.13.5
+            image="ghcr.io/rollkit/gm:05bd40e",
             cmd=["/bin/sh", "-c", " ".join(gm_start_cmd)],
             ports=gm_ports,
             public_ports=gm_ports,

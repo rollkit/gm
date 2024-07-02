@@ -19,7 +19,7 @@ services:
       - local-da
 
   local-da:
+    image: ghcr.io/rollkit/local-da:v0.2.1
     container_name: local-da
-    image: ghcr.io/rollkit/local-da:aa37274
     ports:
       - "7980:7980"
