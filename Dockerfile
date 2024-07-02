@@ -1,53 +1,35 @@
-FROM docker.io/ignitehq/cli:v0.26.1 as ignite
+# This Dockerfile might not follow best practices, but that is an intentional
+# choice to have this Dockerfile use the install scripts that users use in the tutorial.
 
-FROM docker.io/golang:1.20.6-alpine3.17 as builder
+FROM docker.io/alpine:latest
 
-# hadolint ignore=DL3018
-RUN apk --no-cache add \
-        libc6-compat
+# Install system dependencies
+RUN apk update && apk add --no-cache bash curl jq git make sed ranger vim
 
-COPY --from=ignite /usr/bin/ignite /usr/bin/ignite
+# Set the working directory
+WORKDIR /app
 
-WORKDIR /apps
+# Make sure GOPATH is set
+ENV GOPATH /usr/local/go
+ENV PATH $GOPATH/bin:$PATH
 
-COPY --chown=1000:1000 . .
+# Install Rollkit dependencies
+RUN curl -sSL https://rollkit.dev/install.sh | sh -s v0.13.4
 
-RUN ignite chain build --release
+# Install GM rollup
+RUN bash -c "$(curl -sSL https://rollkit.dev/install-gm-rollup.sh)"
 
-FROM docker.io/alpine:3.18.3
+# Update the working directory
+WORKDIR /app/gm
 
-# Read here why UID 10001: https://github.com/hexops/dockerfile/blob/main/README.md#do-not-use-a-uid-below-10000
-ARG UID=10001
-ARG USER_NAME=rollkit
+# Initialize the Rollkit configuration
+RUN rollkit toml init
 
-ENV ROLLKIT_HOME=/home/${USER_NAME}
+# Edit rollkit.toml config_dir
+RUN sed -i 's/config_dir = "gm"/config_dir = "\.\/\.gm"/g' rollkit.toml
 
-# hadolint ignore=DL3018
-RUN apk --no-cache add \
-        bash \
-        libc6-compat \
-    # Creates a user with $UID and $GID=$UID
-    && adduser ${USER_NAME} \
-        -D \
-        -g ${USER_NAME} \
-        -h ${ROLLKIT_HOME} \
-        -s /sbin/nologin \
-        -u ${UID}
+# Run base rollkit command to download packages
+RUN rollkit
 
-COPY --from=builder /apps/release /release
-
-WORKDIR /release
-
-# Workaround for https://github.com/ignite/cli/issues/3480
-# Fixed in https://github.com/ignite/cli/pull/3481
-# hadolint ignore=DL4006
-RUN file=$(find . -maxdepth 1 -regex '.*\.tar\.gz') \
-    && sum=$(< release_checksum sed 's/ .*//') \
-    && echo "$sum  $file" | sha256sum -c - \
-    && tar -xvf "$file" -C /usr/bin/
-
-WORKDIR ${ROLLKIT_HOME}
-
-USER ${USER_NAME}
-
-ENTRYPOINT [ "gmd" ]
+# Keep the container running
+CMD tail -F /dev/null
