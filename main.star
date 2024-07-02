@@ -47,8 +47,12 @@ def run(plan):
     gm_port_spec = PortSpec(
         number=gm_port_number, transport_protocol="TCP", application_protocol="http"
     )
+    gm_frontend_port_spec = PortSpec(
+        number=1317, transport_protocol="TCP", application_protocol="http"
+    )
     gm_ports = {
         "jsonrpc": gm_port_spec,
+        "frontend": gm_frontend_port_spec,
     }
     gm = plan.add_service(
         name="gm",
