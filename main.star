@@ -77,3 +77,25 @@ def run(plan):
             ),
         ),
     )
+
+    #############
+    # GM Frontend
+    #############
+    plan.print("Adding GM Frontend service")
+    frontend_port_number = 3000
+    frontend_port_spec = PortSpec(
+        number=frontend_port_number,
+        transport_protocol="TCP",
+        application_protocol="http",
+    )
+    frontend_ports = {
+        "server": frontend_port_spec,
+    }
+    frontend = plan.add_service(
+        name="frontend",
+        config=ServiceConfig(
+            image="ghcr.io/rollkit/gm-frontend:v0.2.0",
+            ports=frontend_ports,
+            public_ports=frontend_ports,
+        ),
+    )
