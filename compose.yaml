@@ -3,6 +3,7 @@
 version: "3"
 services:
   gm:
+    container_name: gm
     # The build config can be used for debugging and testing changes to the GM Dockerfile
     build: .
 
@@ -19,5 +20,6 @@ services:
 
   local-da:
     image: ghcr.io/rollkit/local-da:v0.2.1
+    container_name: local-da
     ports:
       - "7980:7980"
