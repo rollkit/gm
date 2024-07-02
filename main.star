@@ -53,7 +53,8 @@ def run(plan):
     gm = plan.add_service(
         name="gm",
         config=ServiceConfig(
-            image="ghcr.io/rollkit/gm:49147e3",
+            # Using rollkit version v0.13.5
+            image="ghcr.io/rollkit/gm:05bd40e",
             cmd=["/bin/sh", "-c", " ".join(gm_start_cmd)],
             ports=gm_ports,
             public_ports=gm_ports,
