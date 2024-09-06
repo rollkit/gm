@@ -14,7 +14,7 @@ ENV GOPATH /usr/local/go
 ENV PATH $GOPATH/bin:$PATH
 
 # Install Rollkit dependencies
-RUN curl -sSL https://rollkit.dev/install.sh | sh -s v0.13.5
+RUN curl -sSL https://rollkit.dev/install.sh | sh -s v0.13.7
 
 # Install GM rollup
 RUN bash -c "$(curl -sSL https://rollkit.dev/install-gm-rollup.sh)"
