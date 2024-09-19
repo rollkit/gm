@@ -1,4 +1,4 @@
-FROM ghcr.io/rollkit/gm:v0.1.0
+FROM ghcr.io/rollkit/gm:v0.3.1
 
 USER root
 
