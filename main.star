@@ -30,7 +30,7 @@ def run(
         # TODO: add inputs to target mocha
         plan.print("Using celestia for DA")
         da_node = import_module(
-            "github.com/rollkit/kurtosis-celestia-da-node/main.star"
+            "github.com/rollkit/kurtosis-celestia-da-node/main.star@v0.1.0"
         )
         da_rpc_address, da_auth_token, da_wallet_address, da_height = da_node.run(
             plan,
