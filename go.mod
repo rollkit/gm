@@ -41,7 +41,6 @@ require (
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/bgentry/go-netrc v0.0.0-20140422174119-9fd32a8b3d3d // indirect
 	github.com/bgentry/speakeasy v0.1.0 // indirect
-	github.com/btcsuite/btcd v0.22.1 // indirect
 	github.com/celestiaorg/go-cnc v0.3.0 // indirect
 	github.com/celestiaorg/go-header v0.2.1 // indirect
 	github.com/celestiaorg/go-libp2p-messenger v0.2.0 // indirect
